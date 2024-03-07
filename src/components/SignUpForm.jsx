@@ -44,12 +44,10 @@ export default function SignUpForm({ toggleForm }) {
         navigate("/todo");
     }
 
-    console.log(userData);
-
     return (
         <div className="landing-page">
             <div>
-            <img src="src/assets/signup-landing.jpg" />
+            <img className="landing-image" src="src/assets/signup-landing.jpg" />
             </div>
             <div className="form-section">
             <h1>Let's get started!</h1>

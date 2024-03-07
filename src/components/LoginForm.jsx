@@ -23,13 +23,12 @@ export default function LoginForm({ toggleForm }) {
         e.preventDefault();
         navigate("/todo");
     }
-console.log(credentials);
 
     return (
         <div className="landing-page">
 
             <div>
-            <img src="src/assets/landing-image.jpg" />
+            <img className="landing-image" src="src/assets/landing-image.jpg" />
             </div>
 
             <div className="form-section">
