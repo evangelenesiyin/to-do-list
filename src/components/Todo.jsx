@@ -68,7 +68,7 @@ export default function Todo({ id, text, completed }) {
             ) : (
                 <div 
                     className="todo-text"
-                    style={{ textDecoration: completed ? "line-through" : "none", color: completed ? "gray" : "none" }}
+                    style={{ textDecoration: completed ? "line-through" : "none", color: completed ? "gray" : "black" }}
                 >
                     {text}
                 </div>
