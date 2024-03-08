@@ -5,18 +5,14 @@ h1 {
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    max-width: 650px;
     background-color: #f9f9f9;
 }
 
 .landing-page {
     width: 650px;
     height: 450px;
-    position: fixed;
-    top: 30%;
-    left: 40%;
-    transform: translate(-25%, -25%);
     display: flex;
+    margin: 150px auto;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
@@ -53,17 +49,15 @@ body {
 .todo-page {
     width: 550px;
     height: auto;
-    position: fixed;
-    top: 30%;
-    left: 40%;
-    transform: translate(-30%, -30%);
-    border-radius: 10px;
-    background-color: #eaeaea;
+    display: block;
+    margin: 100px auto;
+    border-radius: 20px;
+    background-color: #fff;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
 }
 
 .todo-section {
-    padding: 30px;
+    padding: 10px 30px 20px 30px;
 }
 
 .todo-item {
@@ -71,17 +65,18 @@ body {
     align-items: center;
     margin-top: 8px;
     padding: 10px 20px 10px 15px;
-    border-radius: 5px;
-    background-color: #fff;
+    border-radius: 20px;
+    background-color: rgb(244, 249, 238);
+}
+
+.todo-item:hover {
+    background-color: rgb(229, 234, 222);
 }
 
 .todo-input {
-    width: 460px;
     display: flex;
     justify-content: center;
-    background-color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 15px;
     margin-bottom: 20px;
 }
 
@@ -99,7 +94,7 @@ body {
 }
 
 .todo-edit:hover, .todo-delete:hover {
-    background-color: rgb(238, 238, 238);
+    background-color: #fff;
     padding: 5px;
     border-radius: 50px;
 }
@@ -117,9 +112,18 @@ body {
     margin-right: 70px;
 }
 
-.banner-image {
-    width: 550px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
+.filter-section {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.filter-buttons {
+    margin: 0 10px;
+}
+.filter-buttons:not(:active) {
+    color: rgb(190, 190, 190);
+}
+
+.filter-buttons:hover {
+    color: rgb(155, 155, 155)
 }
