@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = JSON.parse(localStorage.getItem("todos")) || [];
 
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 const todoSlice = createSlice({
   name: "todos",
   initialState,
@@ -9,7 +13,7 @@ const todoSlice = createSlice({
     addTodo: (state, action) => {
       const newTodo = {
         id: Date.now(),
-        text: action.payload,
+        text: capitalizeFirstLetter(action.payload),
         completed: false,
       };
       state.push(newTodo);
