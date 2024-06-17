@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
+import GoogleLoginComponent from "./GoogleLogin";
+import { signUpService } from "../utils/users-service";
+import { showToast } from './Toast';
 
-export default function SignUpForm({ toggleForm }) {
+export default function SignUpForm({ toggleForm, setUser, status, setStatus }) {
     const [userData, setUserData] = useState({
-    email: "",
-    password: "",
+    username: "",
+    password: ""
     });
 
     const navigate = useNavigate();
@@ -15,34 +18,34 @@ export default function SignUpForm({ toggleForm }) {
     const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === 'email') {
-        const isEmailValid = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value);
+    if (name === 'username') {
         setUserData({
         ...userData,
         [name]: value,
-        valid: isEmailValid && isFormValid(),
         });
     } else {
         setUserData({
         ...userData,
         [name]: value,
-        valid: isFormValid(),
         });
     }
     };
 
-    const isFormValid = () => {
-    return (
-        userData.email &&
-        /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(userData.email) &&
-        userData.password
-    );
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        navigate("/todo");
+     const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const user = await signUpService(userData);
+        if (user !== null && user !== undefined) {
+            setUser(user);
+            navigate("/home");
+        }
+    } catch (err) {
+        setStatus("error");
+        showToast("error", "Unable to create an account. Please try again.")
+    } finally {
+        setStatus(null);
     }
+  }
 
     return (
         <div className="landing-page">
@@ -57,16 +60,16 @@ export default function SignUpForm({ toggleForm }) {
                 <form onSubmit={handleSubmit}>
                 <FormControl required >
                     <Input 
-                    name="email"
-                    value={userData.email}
-                    placeholder="Email" 
+                    name="username"
+                    value={userData.username}
+                    placeholder="Username" 
                     onChange={handleChange}
                     autoComplete="off"
                     style={{ width: 320 }} 
                     />
                 </FormControl>
 
-                {(userData.email !== "" && !userData.email.includes("@")) && (<div className="form-validation-message">example@yourdomain.com</div>)}
+                {(userData.username !== "" && userData.username.length < 6) && (<div className="form-validation-message">Username must be at least 6 characters.</div>)}
 
                 <FormControl required>
                     <Input 
