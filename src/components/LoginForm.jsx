@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { loginService } from "../utils/users-service";
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
+import { showToast } from './Toast';
 
-export default function LoginForm({ toggleForm }) {
+export default function LoginForm({ toggleForm, setStatus, user, setUser }) {
     const [credentials, setCredentials] = useState({
-        email: "",
+        username: "",
         password: ""
     });
 
@@ -20,9 +22,20 @@ export default function LoginForm({ toggleForm }) {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        navigate("/todo");
+    e.preventDefault();
+    try {
+        const user = await loginService(credentials);
+        if (user !== null && user !== undefined) {
+            setUser(user);
+            navigate("/home");
+        }
+    } catch (err) {
+        setStatus("error");
+        showToast("error", "Unsuccessful login attempt.")
+    } finally {
+        setStatus(null);
     }
+  }
 
     return (
         <div className="landing-page">
@@ -39,10 +52,10 @@ export default function LoginForm({ toggleForm }) {
                 <form onSubmit={handleSubmit}>
                 <FormControl required >
                     <Input 
-                    name="email"
-                    value={credentials.email}
+                    name="username"
+                    value={credentials.username}
                     onChange={handleChange}
-                    placeholder="Email"
+                    placeholder="Username"
                     autoComplete="off"
                     style={{ width: 320 }}
                     />
