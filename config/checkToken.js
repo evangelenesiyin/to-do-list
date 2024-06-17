@@ -7,12 +7,12 @@ const checkToken = (req, res, next) => {
   let token = req.get("Authorization") || req.query.token;
   if (token) {
     token = token.replace("Bearer ", "");
-    jwt.verify(token, process.env.SECRET, (err, decoded) => {
-      debug("decoded user request header: %o", decoded);
-
+    jwt.verify(token, process.env.SECRET, function (err, decoded) {
       if (err) {
-        return res.status(401).json({ err });
+        debug("Invalid token: %o", err);
+        return res.status(401).json({ error: "Unauthorized" });
       }
+      debug("decoded user request header: %o", decoded);
       req.user = decoded.user;
       req.exp = new Date(decoded.exp * 1000);
       return next();
