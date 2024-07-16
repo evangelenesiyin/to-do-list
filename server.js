@@ -7,6 +7,7 @@ import logger from "morgan";
 import checkToken from "./config/checkToken.js";
 import usersRouter from "./routes/usersRouter.js";
 import taskRouter from "./routes/taskRouter.js";
+import projectRouter from "./routes/projectRouter.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(checkToken);
 // Routes
 app.use("/api/users", usersRouter);
 app.use("/api/tasks", taskRouter);
+app.use("/api/projects", projectRouter);
 
 // Database connection
 mongoose.set("debug", true);
